@@ -1,5 +1,4 @@
-<input [(ngModel)]="searchQuery" placeholder="Enter your search query" />
-<button (click)="getSuggestions()">Search</button>
-<ul>
-  <li *ngFor="let suggestion of suggestions">{{ suggestion.value }}</li>
-</ul>
+<input type="text" list="suggestions" [(ngModel)]="searchQuery" (change)="getSuggestions()" >
+<datalist id="suggestions">
+  <option *ngFor="let suggestion of suggestions">{{suggestion.data.city}}</option>
+</datalist>
