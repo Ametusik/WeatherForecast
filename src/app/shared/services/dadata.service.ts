@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Suggestion} from "../entities/suggestion";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class DadataService {
 
   }
 
-  public getSuggestions(query: string): Observable<any> {
+  public getSuggestions(query: string): Observable<Suggestion[]> {
     const token = 'bb96dbb64bb5ecd47d61e4facc3d307c5f60eec5';
     const httpOptions = {
       headers: new HttpHeaders()
@@ -25,6 +26,10 @@ export class DadataService {
       query: query,
     };
     return this.http.post<any>(`${this.url}`, body, httpOptions);
+  }
+
+  public getCoordinates(city:string){
+
   }
 
 }
