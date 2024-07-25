@@ -5,6 +5,7 @@ import {NgForOf} from "@angular/common";
 import {Suggestion} from "../../shared/entities/suggestion";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {MatInput} from "@angular/material/input";
+import {LocalStorageService} from "../../shared/services/local-storage.service";
 
 @Component({
   selector: 'app-search',
@@ -23,8 +24,9 @@ import {MatInput} from "@angular/material/input";
 export class SearchComponent implements OnInit {
   searchQuery: string;
   suggestions: Suggestion[];
+  presavedSuggestions: string[];
 
-  constructor(private dadataService: DadataService) {
+  constructor(private dadataService: DadataService, private localStorageService: LocalStorageService) {
 
   }
 
@@ -33,6 +35,7 @@ export class SearchComponent implements OnInit {
       .subscribe(data => {
         this.suggestions = data.suggestions;
       });
+    this.presavedSuggestions = this.localStorageService.getCities();
   }
 
   getSuggestions(): void {
@@ -41,6 +44,12 @@ export class SearchComponent implements OnInit {
       .subscribe(data => {
         this.suggestions = data.suggestions;
       });
+  }
+
+  saveCity(city: string) {
+    if (city) {
+      this.localStorageService.setCity(city);
+    }
   }
 
 }
