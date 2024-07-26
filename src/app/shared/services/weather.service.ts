@@ -21,9 +21,11 @@ export class WeatherService {
   }
 
   getWeatherData(): Observable<WeatherData> {
-   this.sendCityService.getCity().sub;
-    let url: string = 'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}'
-    this.dadataService.getCoordinatesByCity(city).subscribe(data => {
+    this.sendCityService.getCity().subscribe(data => {
+      this.city = data
+    });
+    let url: string = 'https://api.openweathermap.org/data/2.5/onecall?lat='
+    this.dadataService.getCoordinatesByCity(this.city).subscribe(data => {
       this.cityData = data
     });
     url = url.concat(String(this.cityData.geo_lat));
