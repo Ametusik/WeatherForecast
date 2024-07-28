@@ -20,4 +20,6 @@ export class LocalStorageService {
     }
     return cities
   }
+
+  
 }

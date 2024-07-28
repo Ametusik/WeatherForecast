@@ -6,7 +6,8 @@ import {Suggestion} from "../../shared/entities/suggestion";
 import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
 import {MatInput} from "@angular/material/input";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
-import {SendCityService} from "../../shared/services/send-city.service";
+import {CityStorageService} from "../../shared/services/city-storage.service";
+
 
 @Component({
   selector: 'app-search',
@@ -23,36 +24,31 @@ import {SendCityService} from "../../shared/services/send-city.service";
   styleUrl: './search.component.scss'
 })
 export class SearchComponent implements OnInit {
-  searchQuery: string;
-  suggestions: Suggestion[];
-  presavedSuggestions: string[];
+  searchQuery: string = '';
+  suggestions: Suggestion[] = [];
+  presavedSuggestions: string[] = [];
 
   constructor(private dadataService: DadataService,
               private localStorageService: LocalStorageService,
-              private sendCityService: SendCityService) {
+              private cityStorageService: CityStorageService) {
 
   }
 
   ngOnInit() {
-    this.dadataService.getSuggestions(this.searchQuery)
-      .subscribe(data => {
-        this.suggestions = data;
-      });
-    this.presavedSuggestions = this.localStorageService.getCities();
+    this.getSuggestions();
   }
 
   getSuggestions(): void {
-    this.suggestions.length = 0;
     this.dadataService.getSuggestions(this.searchQuery)
       .subscribe(data => {
         this.suggestions = data;
       });
   }
 
-  saveCity(city: string) {
-    if (city) {
-      this.localStorageService.setCity(city);
-      this.sendCityService.setCity(city);
+  saveCity() {
+    if (this.searchQuery) {
+      this.localStorageService.setCity(this.searchQuery);
+      this.cityStorageService.city.next(this.searchQuery);
     }
   }
 

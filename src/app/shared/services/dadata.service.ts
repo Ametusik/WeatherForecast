@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Suggestion} from "../entities/suggestion";
-import {Address} from "../entities/address";
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +23,15 @@ export class DadataService {
     };
     const body = {
       query: query,
+      language: "EN"
     };
-    return this.http.post<any>(`${url}`, body, httpOptions);
+    return this.http.post<any>(`${url}`, body, httpOptions)
+      .pipe(
+        map(response => response.suggestions)
+      );
   }
 
-  public getCoordinatesByCity(city: string): Observable<Address> {
+  /*public getCoordinatesByCity(city: string): Observable<Address> {
     let url = "https://cleaner.dadata.ru/api/v1/clean/address"
     const token: string = 'bb96dbb64bb5ecd47d61e4facc3d307c5f60eec5';
     const secret: string = '3d5502ad860aad27417ec3233f1719be4aa26df2';
@@ -42,7 +45,7 @@ export class DadataService {
       query: city,
     };
     return this.http.post<any>(`${url}`, body, httpOptions);
-  }
+  }*/
 
 }
 

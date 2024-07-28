@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from "../../shared/services/weather.service";
 import {WeatherData} from "../../shared/entities/weather-data";
-import {SendCityService} from "../../shared/services/send-city.service";
+import {CityStorageService} from "../../shared/services/city-storage.service";
 
 @Component({
   selector: 'app-weather',
@@ -12,15 +12,19 @@ import {SendCityService} from "../../shared/services/send-city.service";
 })
 export class WeatherComponent implements OnInit {
 
-  private weatherData: WeatherData;
+  weatherData: WeatherData | undefined;
+  city: string;
+  showWeatherData: boolean;
 
   constructor(private weatherService: WeatherService,
-              private sendCityService: SendCityService) {
+              private cityStorageService: CityStorageService) {
   }
 
   ngOnInit() {
-    this.weatherService.getWeatherData().subscribe(data => {
-      this.weatherData = data;
-    })
+    this.cityStorageService.city.subscribe(data => {
+        this.city = data;
+        console.log(data);
+      }
+    )
   }
 }
