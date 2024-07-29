@@ -23,7 +23,6 @@ export class DadataService {
     };
     const body = {
       query: query,
-      language: "EN"
     };
     return this.http.post<any>(`${url}`, body, httpOptions)
       .pipe(
@@ -31,21 +30,6 @@ export class DadataService {
       );
   }
 
-  /*public getCoordinatesByCity(city: string): Observable<Address> {
-    let url = "https://cleaner.dadata.ru/api/v1/clean/address"
-    const token: string = 'bb96dbb64bb5ecd47d61e4facc3d307c5f60eec5';
-    const secret: string = '3d5502ad860aad27417ec3233f1719be4aa26df2';
-    const httpOptions = {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
-        .set('Authorization', 'Token '.concat(token))
-        .set("X-Secret", secret)
-    };
-    const body = {
-      query: city,
-    };
-    return this.http.post<any>(`${url}`, body, httpOptions);
-  }*/
 
 }
 

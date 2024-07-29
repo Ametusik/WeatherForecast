@@ -3,8 +3,6 @@ import {FormsModule} from "@angular/forms";
 import {DadataService} from "../../shared/services/dadata.service";
 import {NgForOf} from "@angular/common";
 import {Suggestion} from "../../shared/entities/suggestion";
-import {MatAutocomplete, MatAutocompleteTrigger, MatOption} from "@angular/material/autocomplete";
-import {MatInput} from "@angular/material/input";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
 import {CityStorageService} from "../../shared/services/city-storage.service";
 
@@ -14,11 +12,7 @@ import {CityStorageService} from "../../shared/services/city-storage.service";
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf,
-    MatAutocomplete,
-    MatOption,
-    MatAutocompleteTrigger,
-    MatInput
+    NgForOf
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
