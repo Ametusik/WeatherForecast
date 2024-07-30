@@ -1,0 +1,51 @@
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$border-color: #ccc;
+$background-color: #f0f0f0;
+
+.weather-container {
+  margin: 16px;
+  padding: 16px;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.weather, .no-data {
+  padding: 8px;
+  margin-top: 16px;
+  background-color: $background-color;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+}
+
+.weather p, .no-data p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+
+.text-primary {
+  color: $primary-color;
+}
+
+@media screen and (max-width: 768px) {
+  .weather-container {
+    margin: 8px;
+    padding: 12px;
+    max-width: 100%;
+  }
+}

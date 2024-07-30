@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {DadataService} from "../../shared/services/dadata.service";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Suggestion} from "../../shared/entities/suggestion";
 import {LocalStorageService} from "../../shared/services/local-storage.service";
 import {CityStorageService} from "../../shared/services/city-storage.service";
@@ -12,7 +12,8 @@ import {CityStorageService} from "../../shared/services/city-storage.service";
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
@@ -21,6 +22,7 @@ export class SearchComponent implements OnInit {
   searchQuery: string = '';
   suggestions: Suggestion[] = [];
   presavedSuggestions: string[] = [];
+  shouldSaveCity: boolean = false;
 
   constructor(private dadataService: DadataService,
               private localStorageService: LocalStorageService,
@@ -29,21 +31,34 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSuggestions();
+    this.presavedSuggestions = this.localStorageService.getCities()
   }
 
   getSuggestions(): void {
     this.dadataService.getSuggestions(this.searchQuery)
       .subscribe(data => {
-        this.suggestions = data;
+        return this.suggestions = this.removeDuplicatesObjects(data, 'data.city');
       });
   }
 
   saveCity() {
     if (this.searchQuery) {
-      this.localStorageService.setCity(this.searchQuery);
       this.cityStorageService.city.next(this.searchQuery);
+      if (this.shouldSaveCity) {
+        this.localStorageService.setCity(this.searchQuery);
+      }
     }
+  }
+
+  removeDuplicatesObjects(arr: any[], key: string): any[] {
+    const uniqueMap = new Map();
+    arr.forEach(item => {
+      const keyValue = item[key];
+      if (!uniqueMap.has(keyValue)) {
+        uniqueMap.set(keyValue, item);
+      }
+    });
+    return Array.from(uniqueMap.values());
   }
 
 

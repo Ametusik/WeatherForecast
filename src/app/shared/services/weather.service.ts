@@ -10,14 +10,13 @@ import {HttpClient} from "@angular/common/http";
 export class WeatherService {
 
   token: string = '428b905b01a726d22f6fdf885bda3bd6';
-  city: string;
 
   constructor(private dadataService: DadataService,
               private http: HttpClient,
   ) {
   }
 
-  getWeatherData(city:string): Observable<WeatherData> {
+  getWeatherData(city: string): Observable<WeatherData> {
     let url: string = 'https://api.openweathermap.org/data/2.5/weather?q='
     url = url.concat(city);
     url = url.concat('&appid=');

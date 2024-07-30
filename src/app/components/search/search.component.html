@@ -1,6 +1,15 @@
-<input type="text" list="suggestions" [(ngModel)]="searchQuery" (ngModelChange)="getSuggestions()">
-<datalist id="suggestions">
-  <option *ngFor="let presavedSuggestion of presavedSuggestions">{{presavedSuggestion}}</option>
-  <option *ngFor="let suggestion of suggestions">{{suggestion.data.city}}</option>
-</datalist>
-<button (click)="saveCity()">Найти</button>
+<div class="search-container">
+
+  <input type="text" list="suggestions" [(ngModel)]="searchQuery" (ngModelChange)="getSuggestions()" class="search-input">
+
+  <datalist id="suggestions" class="suggestions">
+    <option *ngFor="let suggestion of suggestions" [value]="suggestion.data.city">{{ suggestion.data.city }}</option>
+    <option *ngFor="let presavedSuggestion of presavedSuggestions" [value]="presavedSuggestion">{{presavedSuggestion}}</option>
+  </datalist>
+
+  <button (click)="saveCity()" class="search-button">Найти</button>
+
+  <label>
+    <input type="checkbox" [(ngModel)]="shouldSaveCity"> Сохранить
+  </label>
+</div>

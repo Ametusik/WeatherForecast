@@ -21,5 +21,9 @@ export class LocalStorageService {
     return cities
   }
 
-  
+  deleteCity(city: string) {
+    localStorage.removeItem(city);
+  }
+
+
 }

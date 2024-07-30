@@ -1,4 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Обычный шрифт */
+@font-face {
+  font-family: 'Lato';
+  src: url('assets/fonts/Lato-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Жирный шрифт */
+@font-face {
+  font-family: 'Lato';
+  src: url('assets/fonts/Lato-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Курсивный шрифт */
+@font-face {
+  font-family: 'Lato';
+  src: url('assets/fonts/Lato-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Жирный курсивный шрифт */
+@font-face {
+  font-family: 'Lato';
+  src: url('assets/fonts/Lato-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Lato, "Arial", sans-serif;
+}
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 100;
+}

@@ -1,7 +1,21 @@
-<h2>{{city}}</h2>
-<div class="weather">
-  <p>{{Math.round(weatherData.main.temp - 273)}}</p>
-  <p>{{weatherData.main.pressure}} мм. рт. ст.</p>
-  <p>{{weatherData.weather[0].main |translateWeather}}</p>
-  <p>{{weatherData.wind.speed}} м/c</p>
+<div class="weather-container" *ngIf="city!=''">
+  <h2>{{ city }}</h2>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner-border" >
+      <span class="sr-only">Загрузка данных...</span>
+    </div>
+  </div>
+
+  <div *ngIf="showWeatherData && !loading" class="weather">
+    <p>{{ Math.round((weatherData.main.temp - 273)) }}°C</p>
+    <p>{{ weatherData.main.pressure }} мм. рт. ст.</p>
+    <p>{{ weatherData.weather[0].description | translateWeather }}</p>
+    <p>{{ weatherData.wind.speed }} м/c</p>
+  </div>
+
+  <div *ngIf="!showWeatherData && city !== '' && !loading" class="no-data">
+    <p>Информация о погоде для города "{{ city }}" отсутствует.</p>
+    <p>Проверьте корректность написания названия города</p>
+  </div>
 </div>
