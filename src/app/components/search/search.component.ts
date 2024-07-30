@@ -20,8 +20,9 @@ import {CityStorageService} from "../../shared/services/city-storage.service";
 })
 export class SearchComponent implements OnInit {
   searchQuery: string = '';
-  suggestions: Suggestion[] = [];
+  suggestions: string[] = [];
   presavedSuggestions: string[] = [];
+  uniqueSuggestions: string[] = [];
   shouldSaveCity: boolean = false;
 
   constructor(private dadataService: DadataService,
@@ -37,7 +38,9 @@ export class SearchComponent implements OnInit {
   getSuggestions(): void {
     this.dadataService.getSuggestions(this.searchQuery)
       .subscribe(data => {
-        return this.suggestions = this.removeDuplicatesObjects(data, 'data.city');
+        this.suggestions = data
+          .filter(suggestion => !this.presavedSuggestions.includes(suggestion.data.city))
+          .map(suggestion => suggestion.data.city);
       });
   }
 

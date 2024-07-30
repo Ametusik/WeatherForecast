@@ -3,7 +3,7 @@
   <input type="text" list="suggestions" [(ngModel)]="searchQuery" (ngModelChange)="getSuggestions()" class="search-input">
 
   <datalist id="suggestions" class="suggestions">
-    <option *ngFor="let suggestion of suggestions" [value]="suggestion.data.city">{{ suggestion.data.city }}</option>
+    <option *ngFor="let suggestion of suggestions" [value]="suggestion">{{ suggestion}}</option>
     <option *ngFor="let presavedSuggestion of presavedSuggestions" [value]="presavedSuggestion">{{presavedSuggestion}}</option>
   </datalist>
 
